@@ -1,5 +1,6 @@
 package tn.esprit.ds.ski_yassinebencheikh.Entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,7 +25,8 @@ public class Piste {
     private int pente;
 
 @ManyToMany(mappedBy = "pistes")
-     List<Skieur> skieurs;
+@JsonIgnore
+private List<Skieur> skieurs;
 
 
 }

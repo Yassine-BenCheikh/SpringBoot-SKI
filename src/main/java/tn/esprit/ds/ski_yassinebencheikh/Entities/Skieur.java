@@ -1,5 +1,6 @@
 package tn.esprit.ds.ski_yassinebencheikh.Entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -27,7 +28,8 @@ public class Skieur {
     @OneToMany(mappedBy = "skieur")
     private List<Inscription> inscriptions;
 @OneToOne(cascade = CascadeType.REMOVE)
+@JsonIgnore
     private Abonnement abonnement;
     @ManyToMany
-    List<Piste> pistes;
+    private List<Piste> pistes;
 }
