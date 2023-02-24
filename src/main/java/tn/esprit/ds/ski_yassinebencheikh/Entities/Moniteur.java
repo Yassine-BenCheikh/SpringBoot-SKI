@@ -1,15 +1,23 @@
 package tn.esprit.ds.ski_yassinebencheikh.Entities;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
 
 @Entity
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class Moniteur {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long numMoniteur;
     private String nomM;
     private String prenomM;
