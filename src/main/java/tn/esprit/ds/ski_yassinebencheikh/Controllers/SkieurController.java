@@ -37,7 +37,7 @@ return skieurService.retrieveSkieur(numSkieur);
 
 
    @PutMapping("{numSkieur}/{numPiste}")
-   public Skieur assignSkierToPiste(@PathVariable Long numSkieur,@PathVariable Long numPiste){
+   public Skieur assignSkierToPiste(@PathVariable long numSkieur,@PathVariable long numPiste){
     return  skieurService.assignSkierToPiste(numSkieur, numPiste);
    }
 

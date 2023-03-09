@@ -11,12 +11,12 @@ import java.util.Optional;
 @RestController
 @RequestMapping("Inscription")
 public class InscriptionController {
+
     @Autowired
     IInscriptionService inscriptionService;
     @GetMapping
     public List<Inscription> getAll(){
         return inscriptionService.retrieveAllInscription();
-
     }
     @GetMapping("{numInscription}")
 

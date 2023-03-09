@@ -17,7 +17,6 @@ public class Inscription {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long numInscription;
     private int  numSemaine;
-
     @ManyToOne
     private Cours cours;
     @ManyToOne

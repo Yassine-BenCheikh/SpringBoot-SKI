@@ -2,6 +2,7 @@ package tn.esprit.ds.ski_yassinebencheikh.Service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 import tn.esprit.ds.ski_yassinebencheikh.Entities.Abonnement;
 import tn.esprit.ds.ski_yassinebencheikh.Entities.Piste;
 import tn.esprit.ds.ski_yassinebencheikh.Entities.Skieur;
@@ -49,13 +50,16 @@ public class ISkieurServiceImp implements ISkieurService {
     public Skieur assignSkierToPiste(Long numSkieur, Long numPiste) {
        //récupération des objets
         Skieur skieur = skieurRepository.findById(numSkieur).orElse(null);
+        Assert.notNull(skieur, "skieur not null");
         Piste piste = pisteRepository.findById(numPiste).orElse(null);
-       if(skieur != null && piste != null){
+        Assert.notNull(piste, "piste not null");
+
+        if(skieur != null && piste != null){
            //traitement
-           skieur.getPistes().add(piste);
-          /* List<Piste> pistes = skieur.getPistes();
+          // skieur.getPistes().add(piste);
+           List<Piste> pistes = skieur.getPistes();
            pistes.add(piste);
-           skieur.setPistes(pistes);*/
+           skieur.setPistes(pistes);
            //save
           return skieurRepository.save(skieur);
        }
@@ -69,9 +73,14 @@ public class ISkieurServiceImp implements ISkieurService {
         if(skieur != null && abonnement != null){
             skieur.setAbonnement(abonnement);
             return skieurRepository.save(skieur);
-
         }
-
         return null;
+
     }
+
+
+
+
+
+
 }

@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 import java.util.List;
@@ -14,13 +15,15 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+
 public class Piste {
     @Id
     @GeneratedValue(strategy =GenerationType.IDENTITY )
     private long numPiste;
     private String nomPiste;
-    @Enumerated(EnumType.STRING)
-    private Couleur Couleur;
+   // @Enumerated(EnumType.STRING)
+   @Enumerated(EnumType.STRING)
+   private Couleur Couleur;
     private int longeur;
     private int pente;
 
