@@ -3,14 +3,12 @@ package tn.esprit.ds.ski_yassinebencheikh.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
-import tn.esprit.ds.ski_yassinebencheikh.Entities.Abonnement;
-import tn.esprit.ds.ski_yassinebencheikh.Entities.Piste;
-import tn.esprit.ds.ski_yassinebencheikh.Entities.Skieur;
-import tn.esprit.ds.ski_yassinebencheikh.Repositories.AbonnementRepository;
-import tn.esprit.ds.ski_yassinebencheikh.Repositories.PisteRepository;
-import tn.esprit.ds.ski_yassinebencheikh.Repositories.SkieurRepository;
+import tn.esprit.ds.ski_yassinebencheikh.Entities.*;
+import tn.esprit.ds.ski_yassinebencheikh.Repositories.*;
 
 import java.util.List;
+import java.util.Set;
+
 @Service
 public class ISkieurServiceImp implements ISkieurService {
     @Autowired
@@ -20,6 +18,11 @@ public class ISkieurServiceImp implements ISkieurService {
     AbonnementRepository abonnementRepository;
     @Autowired
     PisteRepository pisteRepository;
+    @Autowired
+    private CoursRepository coursRepository;
+    @Autowired
+    private InscriptionRepository inscriptionRepository;
+
     @Override
     public List<Skieur> retrieveAllSkieurs() {
         return skieurRepository.findAll()  ;
@@ -75,9 +78,39 @@ public class ISkieurServiceImp implements ISkieurService {
             return skieurRepository.save(skieur);
         }
         return null;
-
     }
 
+    @Override
+    public List<Skieur> retrieveSkiersBySubscriptionType(TypeAbonnement typeAbonnement) {
+        return skieurRepository.findByAbonnement_TypeAbonnement(typeAbonnement);
+    }
+    @Override
+    public Skieur addSkierAndAssignToCourse(Skieur skieur) {
+
+
+        Assert.notNull(skieur.getAbonnement(), "abonnemet must not be empty");
+        Assert.notNull(skieur.getInscriptions(), "inscription must not be empty");
+        List<Inscription> inscriptions= skieur.getInscriptions();
+        inscriptions.forEach(inscription -> {
+            Assert.notNull(inscription.getCours().getNumCours()  , "cours must not be empty" );
+            Cours cours = coursRepository.findById(inscription.getCours().getNumCours()).orElse( null);
+            Assert.notNull(cours, "cours not found");
+            inscription.setCours(cours);
+            skieurRepository.saveAndFlush(skieur);
+             inscription.setSkieur(skieur);
+             inscriptionRepository .save(inscription);
+        });
+        //exception 100
+        return skieur;
+    }
+
+
+
+  /*  @Override
+    public  List<Skieur> retrieveSkiersBySubscriptionType(TypeAbonnement typeAbonnement)
+    {
+        return skieurRepository.findByAbonnement_TypeAbonnement(typeAbonnement);
+    }*/
 
 
 

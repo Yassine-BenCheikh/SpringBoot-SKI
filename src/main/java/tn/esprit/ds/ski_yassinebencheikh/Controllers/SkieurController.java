@@ -2,6 +2,7 @@ package tn.esprit.ds.ski_yassinebencheikh.Controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import tn.esprit.ds.ski_yassinebencheikh.Entities.Skieur;
+import tn.esprit.ds.ski_yassinebencheikh.Entities.TypeAbonnement;
 import tn.esprit.ds.ski_yassinebencheikh.Service.ISkieurService;
 
 import java.util.List;
@@ -44,7 +45,18 @@ return skieurService.retrieveSkieur(numSkieur);
     @PutMapping("{numSkieur}/{numAbon}")
     public Skieur AssignSkierToSubscription(@PathVariable long numSkieur, @PathVariable long numAbon){
         return  skieurService.AssignSkierToSubscription(numSkieur, numAbon);
+    }
 
+
+    @GetMapping("getskieurbytypeabon/{typeAbonnement}")
+    public List<Skieur> getskieurbytypeabon(@PathVariable TypeAbonnement typeAbonnement){
+        return  skieurService.retrieveSkiersBySubscriptionType(typeAbonnement);
+
+    }
+
+    @PostMapping("addSkierAndAssignToCourse")
+    Skieur addSkierAndAssignToCourse( @RequestBody Skieur skieur){
+    return skieurService.addSkierAndAssignToCourse(skieur);
     }
 
 

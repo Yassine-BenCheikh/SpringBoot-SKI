@@ -38,4 +38,17 @@ public class IMoniteurServiceImp implements IMoniteurService {
         moniteurRepository.deleteById(numMoniteur);
 
     }
+
+   /* @Override
+    public Moniteur addInstructorAndAssignToCourse(Moniteur moniteur, Long numCourse) {
+        Cours cours = coursRepository.findById(numCourse).orElse(null);
+        List<Moniteur> allMoniteurs = moniteurRepository.findAll();
+        if(moniteur != null && cours != null){
+            List<Cours> coursList = allMoniteurs.get(0).getCours();
+            coursList.add(cours);
+            moniteur.setCours(coursList);
+            return moniteurRepository.save(moniteur);
+        }
+        return null;
+    }*/
 }

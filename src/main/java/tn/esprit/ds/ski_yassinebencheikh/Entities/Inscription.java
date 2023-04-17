@@ -21,4 +21,7 @@ public class Inscription {
     private Cours cours;
     @ManyToOne
     private Skieur skieur;
+
+
+
 }
